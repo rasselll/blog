@@ -7,9 +7,6 @@ import { Actions } from 'react-native-router-flux';
 
 class SuccessScreen extends Component {
 
-
-
-
     render () {
         return (
             <View style={styles.container}>
