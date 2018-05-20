@@ -3,7 +3,6 @@ const validate = (val, rules) => {
     let isValid = true;
 
     for (let rule in rules ) {
-        console.log(rule);
         switch (rule) {
             case 'isEmail':
                 isValid = isValid && emailValidator(val);
@@ -11,11 +10,9 @@ const validate = (val, rules) => {
             case 'minLength' : 
                 isValid = isValid && passwordValidator(val, rules[rule]);
                 break;
-            case 'lastName' : 
-
+            case 'lastName' :
                 isValid = isValid && fullnameValidator(val);
                 console.log(fullnameValidator(val));
-                
                 break;
             default:
                 isValid= true;

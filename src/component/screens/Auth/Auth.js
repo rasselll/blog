@@ -1,42 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, AsyncStorage } from "react-native";
 import { CustomButton } from '../../common/index';
 import {Actions} from 'react-native-router-flux';
 import color from '../../../assets/color';
 
+class AuthScreen extends React.Component {
 
-
-class AuthScreen extends Component {
-    loginScreen = () => {
-        Actions.login();
-    }
-    signUpScreen = () => {
-        Actions.signUpScreen();
-    }
-    state = {
-        viewMode: Dimensions.get('window').height > 500 ? 'potrait' : 'landscape'
-    }
     constructor(props) {
         super(props);
-
         Dimensions.addEventListener('change', this.updateMode);
+        this.state = {
+            viewMode: Dimensions.get('window').height > 500 ? 'potrait' : 'landscape'
+        }
     }
 
     componentWillUnmount () {
         Dimensions.removeEventListener('change', this.updateMode);
     }
+
     componentDidMount () {
-        
+
         // AsyncStorage.getItem('as:auth:user')
         //     .then(
         //         user => {
         //             if (user) {
-        //                 Actions.lightbox(); 
+        //                 Actions.lightbox();
         //             }
         //         }
         //     )
         //     .catch(err => Actions.auth())
     }
+
+    loginScreen = () => {
+        Actions.login();
+    }
+
+    signUpScreen = () => {
+        Actions.signUpScreen();
+    }
+
     updateMode = (dims) => {
         this.setState({
             viewMode: dims.window.height > 500 ? 'potrait' : 'landscape'

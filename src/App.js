@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { View, Text, StatusBar} from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 
-
 import RouterComponent from './Router';
 import reducers from './store/reducers';
 import color from './assets/color';
 import SplashScreen from 'react-native-splash-screen';
 import { Client } from 'bugsnag-react-native';
-class App extends Component {
+
+class App extends React.Component {
     constructor(props) {
         super(props);
         console.ignoredYellowBox = ['Setting a timer'];
