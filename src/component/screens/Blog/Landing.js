@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Animated,Text, FlatList, StyleSheet, RefreshControl, ScrollView, Easing } from 'react-native';
+import { View, Animated,Text, FlatList, StyleSheet, RefreshControl, ScrollView, Easing, AsyncStorage } from 'react-native';
 import ListView from '../../common/List';
 import { fetchAllBlog, fetchUserInfo, fetchAllUserNotification } from "../../../store/actions";
 import {connect} from 'react-redux';
@@ -25,8 +25,12 @@ class Landing extends Component {
     }
   
     componentWillMount() {
+        // if (this.props.userToken === null) {
+        //     Actions.login()
+        // }
+
         this.props.fetch_allBlog();
-        if (this.props.allPosts) {
+        if (this.props.allPosts) {  
             this.setState({
                 info: this.props.allPosts
             });
@@ -263,7 +267,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, userInfo, email} = state.auth;
+    const { user, userInfo, email, userToken} = state.auth;
     const allPosts = state.blog.allBlog;
     const notifications = state.blog.notifications;
    
@@ -272,7 +276,8 @@ const mapStateToProps = (state) => {
         user,
         userInfo,
         allPosts,
-        notifications
+        notifications,
+        userToken
     }
 }
 

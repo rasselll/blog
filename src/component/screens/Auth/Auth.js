@@ -4,6 +4,9 @@ import { CustomButton } from '../../common/index';
 import {Actions} from 'react-native-router-flux';
 import color from '../../../assets/color';
 
+import { handleAuth } from "../../../store/actions";
+import { connect } from 'react-redux'
+
 class AuthScreen extends React.Component {
 
     constructor(props) {
@@ -14,21 +17,12 @@ class AuthScreen extends React.Component {
         }
     }
 
-    componentWillUnmount () {
-        Dimensions.removeEventListener('change', this.updateMode);
+    componentWillMount() {
+        this.props.handleAuth()
     }
 
-    componentDidMount () {
-
-        // AsyncStorage.getItem('as:auth:user')
-        //     .then(
-        //         user => {
-        //             if (user) {
-        //                 Actions.lightbox();
-        //             }
-        //         }
-        //     )
-        //     .catch(err => Actions.auth())
+    componentWillUnmount () {
+        Dimensions.removeEventListener('change', this.updateMode);
     }
 
     loginScreen = () => {
@@ -46,6 +40,10 @@ class AuthScreen extends React.Component {
     }
 
     render() {
+        if (this.props.userToken) {
+            Actions.lightbox()
+        }        
+
         return (
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
                 <View style={this.state.viewMode === 'potrait' ? styles.potraitLogoContainer : styles.landscapeLogoContainer}>
@@ -155,4 +153,17 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthScreen;
+const mapStateToProps = (state) => {
+    const {userToken} = state.auth
+    return {
+        userToken
+    }
+}
+
+const mapDispatchTOProps = dispatch => {
+    return {
+        handleAuth: () => dispatch(handleAuth())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchTOProps)(AuthScreen);
