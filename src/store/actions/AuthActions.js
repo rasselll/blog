@@ -16,7 +16,8 @@ import {
     UPDATE_USER_PASSWORD_FAIL,
     UPLOAD_PROFILE_IMAGE,
     UPLOAD_PROFILE_IMAGE_FAIL,
-    UPLOAD_PROFILE_IMAGE_SUCCESS
+    UPLOAD_PROFILE_IMAGE_SUCCESS,
+    SET_USER_TOKEN
 } from "./types";
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
@@ -81,6 +82,40 @@ export const loginUserFail = (dispatch) => {
     });
 };
 
+export const setAuthToken = (dispatch, token) => {
+    dispatch({
+        type: SET_USER_TOKEN,
+        token
+    })
+}
+
+export const handleAuth = () => {
+    console.log('handle auth is running')
+    return (dispatch) => {
+        AsyncStorage.getItem('as:auth:token', (error, token) => {
+            if (token) {
+                console.log('token', token)
+                setAuthToken(dispatch, token)
+            }
+        })
+
+        AsyncStorage.getItem('as:auth:user', (error, user) => {
+            if (user) {
+                var user = JSON.parse(user)
+                dispatch({
+                    type: LOGIN_USER_SUCCESS,
+                    payload: user
+                });
+
+                console.log(user)
+                firebase.database().ref('userInfo/' + user.uid)
+                .on('value', snapshot=> {                           
+                    dispatch ({type: USERINFO_FETCH_SUCCESS, payload: snapshot.val()});
+                });                
+            }
+        })        
+    }
+}
 
 
 export const loginUserSuccess = (dispatch, user, status) => {   
@@ -93,9 +128,13 @@ export const loginUserSuccess = (dispatch, user, status) => {
    
     currentUser.getIdToken()
         .then(data => {
-                AsyncStorage.setItem('as:auth:user', data);
+                console.log(data)
+                console.log(JSON.stringify(user))
+                AsyncStorage.setItem('as:auth:token', data);
+                AsyncStorage.setItem('as:auth:user', JSON.stringify(user));
+
                 if (status === 'login') {
-                  
+                    setAuthToken(dispatch, data)
                     Actions.lightbox();
                 } else if (status === 'signUp') {
                   
@@ -122,6 +161,7 @@ export const logOutUser = () => {
             .then(()=> {
                 dispatch({type: USER_LOG_OUT});
                 AsyncStorage.removeItem('as:auth:user');
+                AsyncStorage.removeItem('as:auth:token');
                 Actions.auth();
             }).catch(()=> {
                 console.log('error');

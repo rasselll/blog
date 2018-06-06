@@ -60,3 +60,5 @@ export const UPDATE_USER_PASSWORD_FAIL = 'update_user_password_fail';
 export const UPLOAD_PROFILE_IMAGE = 'upload_profile_image';
 export const UPLOAD_PROFILE_IMAGE_FAIL = 'upload_profile_image_fail';
 export const UPLOAD_PROFILE_IMAGE_SUCCESS = 'upload_profile_image_success';
+
+export const SET_USER_TOKEN = 'SET_USER_TOKEN'
