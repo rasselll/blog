@@ -3,7 +3,6 @@ const validate = (val, rules) => {
     let isValid = true;
 
     for (let rule in rules ) {
-        console.log(rule);
         switch (rule) {
             case 'isEmail':
                 isValid = isValid && emailValidator(val);

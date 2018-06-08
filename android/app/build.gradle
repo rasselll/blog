@@ -156,8 +156,7 @@ dependencies {
     compile project(':react-native-linear-gradient')
     compile project(':react-native-image-picker')
     compile project(':react-native-fetch-blob')    
-    compile project(':react-native-splash-screen')  
-    compile project(':react-native-shimmer')     
+    compile project(':react-native-shimmer')
     compile project(':bugsnag-react-native')
 
 }

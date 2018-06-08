@@ -52,7 +52,7 @@ const styles={
         flex:1,
         flexDirection:'row',
         alignItems:'center',
-        margin: 30
+        margin: 20
     }
 }
 

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, Image, StatusBar} from 'react-native';
+import {AsyncStorage, Image, StatusBar, StyleSheet, Text, View} from 'react-native';
 import * as Progress from 'react-native-progress';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 import color from '../../assets/color';
+
 class Initial extends Component {
 
     constructor(props) {
@@ -16,37 +17,44 @@ class Initial extends Component {
     }
 
     componentDidMount() {
-        this.animate();
+        this.animate().done();
         StatusBar.setHidden(true);
     }
-    animate() {
-        setTimeout((function () {
-            this.setState({ progress: this.state.progress + (0.02 * Math.random()) });
-            Actions.auth()
-        }).bind(this), 3000);
+
+    async animate() {
+        setTimeout(() => {
+            this.setState({progress: this.state.progress + (0.02 * Math.random())});
+            AsyncStorage.getItem('as:auth:user').then(result => {
+                if (result !== null) {
+                    Actions.lightbox()
+                } else {
+                    Actions.auth()
+                }
+            });
+        }, 3000);
     }
 
-    render () {
+    render() {
         return (
             <View style={styles.container}>
-                <Image source={require('../../assets/initial_back.png')} 
-                    style={styles.backgroundImageStyle}
-                
-                />
+                <Image source={require('../../assets/initial_back.png')}
+                       style={styles.backgroundImageStyle}/>
                 <View style={styles.mainContainer}>
-                    <View style={{width: '100%', 
-                    height: '75%', alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{
+                        width: '100%',
+                        height: '75%', alignItems: 'center', justifyContent: 'center'
+                    }}>
                         <View style={styles.iconContainer}>
-                            <Image source={require('../../assets/initial_icon.png')} style={styles.iconStyle} />
+                            <Image source={require('../../assets/initial_icon.png')} style={styles.iconStyle}/>
                         </View>
                         <Text style={styles.titleStyle}>Artisan's Story</Text>
                     </View>
-                    <View style={{ height: '25%', width: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                    <View style={{height: '25%', width: '100%', alignItems: 'center', justifyContent: 'center'}}>
                         <Progress.Bar
                             style={styles.progress}
                             progress={this.state.progress}
                             color={color.themeColor}
-                            unfilledColor={color.greyColor} 
+                            unfilledColor={color.greyColor}
                             borderWidth={0}
                             indeterminate={this.state.indeterminate}
                         />
@@ -57,11 +65,11 @@ class Initial extends Component {
     }
 }
 
-const styles= StyleSheet.create({
-    container :{
-        flex:1
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
     },
-    backgroundImageStyle : {
+    backgroundImageStyle: {
         height: '100%',
         width: '100%'
     },
@@ -72,20 +80,20 @@ const styles= StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    iconContainer : { 
+    iconContainer: {
         height: 230,
-        width : 230,
+        width: 230,
         marginTop: '20%'
     },
-    iconStyle : {
-        height : '100%',
-        width : '100%'
+    iconStyle: {
+        height: '100%',
+        width: '100%'
     },
-    progress :{
+    progress: {
         width: '80%',
         marginTop: '20%',
     },
-    titleStyle : {
+    titleStyle: {
         fontFamily: 'DancingScript-Bold',
         fontSize: 48,
         marginTop: 10,

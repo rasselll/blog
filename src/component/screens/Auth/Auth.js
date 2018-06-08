@@ -4,8 +4,6 @@ import { CustomButton } from '../../common/index';
 import {Actions} from 'react-native-router-flux';
 import color from '../../../assets/color';
 
-
-
 class AuthScreen extends Component {
     loginScreen = () => {
         Actions.login();

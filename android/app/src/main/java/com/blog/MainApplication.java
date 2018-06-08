@@ -9,9 +9,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.imagepicker.ImagePickerPackage; // <-- add this import
+import com.imagepicker.ImagePickerPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.shimmer.RNShimmerPackage;
 import com.bugsnag.BugsnagReactNative;
 import java.util.Arrays;
@@ -35,7 +34,6 @@ public class MainApplication extends Application implements ReactApplication {
           new LinearGradientPackage(),
           new ImagePickerPackage(),
           new RNFetchBlobPackage(),
-          new SplashScreenReactPackage(),
           new RNShimmerPackage()
       );
     }

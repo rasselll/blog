@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { CustomButton, Input, Spinner } from "../../common";
-import {Actions} from 'react-native-router-flux';
+import React, {Component} from 'react';
+import {Dimensions, Image, StyleSheet, ActivityIndicator, Text, View} from 'react-native';
+import {CustomButton, Input, Spinner} from "../../common";
+import {Content} from 'native-base'
 import {connect} from 'react-redux';
+import KeyboardSpacer from './../../common/Keyboard'
 import validate from '../../../Utility/validation';
 
-import { signUpUser} from '../../../store/actions';
+import {signUpUser} from '../../../store/actions';
 
-
+const {width, height} = Dimensions.get('window')
 
 class SignUp extends Component {
 
@@ -30,19 +31,19 @@ class SignUp extends Component {
                 },
                 touched: false
             },
-            fullname : {
-                value : '',
-                valid : false,
-                validationRules : {
-                    lastName : false
+            fullname: {
+                value: '',
+                valid: false,
+                validationRules: {
+                    lastName: false
                 },
                 touched: false
             }
         }
     }
+
     constructor(props) {
         super(props);
-
         Dimensions.addEventListener('change', this.updateMode);
     }
 
@@ -70,23 +71,6 @@ class SignUp extends Component {
                 }
             }
         });
-        console.log(this.state.controls);
-    }
-
-
-    renderImageContainer = () => {
-        const imageContainer = (
-            <View style={styles.imageContainer}>
-                <Image
-                    style={styles.iconStyle}
-                    source={require('../../../assets/signUpIcon.png')}
-                />
-            </View>
-        );
-
-        if (this.state.viewMode === 'potrait') {
-            return imageContainer;
-        }
     }
 
     signUpHandler = () => {
@@ -94,11 +78,12 @@ class SignUp extends Component {
         const email = this.state.controls.email.value;
         const password = this.state.controls.password.value;
 
-        this.props.signUp_user_in({fullname, email, password });
+        console.log(fullname, email, password)
+        this.props.signUp_user_in({fullname, email, password});
     }
     renderButton = () => {
         if (this.props.loading) {
-            return <Spinner size='large' />;
+            return <ActivityIndicator size='large'/>;
         }
         return (
             <CustomButton
@@ -117,7 +102,7 @@ class SignUp extends Component {
     renderErrorMessage() {
         if (this.props.error) {
             return (
-                <View style={{ marginBottom: 10 }}>
+                <View style={{marginBottom: 10}}>
                     <Text style={styles.errorMsgStyle}>{this.props.error}</Text>
                 </View>
             );
@@ -125,13 +110,13 @@ class SignUp extends Component {
     }
 
     render() {
+
         return (
-            <TouchableWithoutFeedback
-                onPress={Keyboard.dismiss}
-                accessible={false}
-            >
-            <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                {this.renderImageContainer()}
+            <Content style={{backgroundColor: 'white'}}>
+                <Image
+                    style={styles.iconStyle}
+                    source={require('../../../assets/signUpIcon.png')}
+                />
                 <View style={styles.inputContainer}>
                     <Input
                         secureTextEntry={false}
@@ -144,7 +129,7 @@ class SignUp extends Component {
                         value={this.state.controls.fullname.value}
                         onChangeText={val => this.updateInputState('fullname', val)}
                         valid={this.state.controls.fullname.valid}
-                        touched={this.state.controls.fullname.touched}  
+                        touched={this.state.controls.fullname.touched}
                     />
                     <Input
                         secureTextEntry={false}
@@ -158,7 +143,7 @@ class SignUp extends Component {
                         value={this.state.controls.email.value}
                         onChangeText={val => this.updateInputState('email', val)}
                         valid={this.state.controls.email.valid}
-                        touched={this.state.controls.email.touched}  
+                        touched={this.state.controls.email.touched}
                     />
                     <Input
                         secureTextEntry={true}
@@ -170,15 +155,14 @@ class SignUp extends Component {
                         value={this.state.controls.password.value}
                         onChangeText={val => this.updateInputState('password', val)}
                         valid={this.state.controls.password.valid}
-                        touched={this.state.controls.password.touched}  
+                        touched={this.state.controls.password.touched}
                     />
                 </View>
                 {this.renderErrorMessage()}
                 <View style={styles.buttonContainer}>
-                   {this.renderButton()}
+                {this.renderButton()}
                 </View>
-            </View>
-            </TouchableWithoutFeedback>
+            </Content>
         );
     }
 }
@@ -189,7 +173,7 @@ const styles = StyleSheet.create({
         height: '50%',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop : 10
+        marginTop: 10
     },
     buttonContainer: {
         flex: 1,
@@ -199,17 +183,18 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     iconStyle: {
-        width: '70%',
-        height: '100%'
+        width: width,
+        height: height / 2.8
     },
     inputContainer: {
-        width: '100%',
-        marginBottom: 2 ,
-        marginTop: 5
+        flex: 1,
+        flexDirection : 'column',
+        justifyContent: 'space-evenly',
+        alignContent: 'center',
+        width: width,
     },
     inputStyle: {
         color: '#000',
-        paddingTop: 3,
         width: '80%'
     },
     labelStyle: {
@@ -218,8 +203,8 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ auth }) => {
-    const { email, password, error, loading } = auth;
+const mapStateToProps = ({auth}) => {
+    const {email, password, error, loading} = auth;
     return {
         email,
         password,
@@ -231,8 +216,8 @@ const mapStateToProps = ({ auth }) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signUp_user_in: ({fullname, email, password }) => dispatch(signUpUser({fullname, email, password }))
+        signUp_user_in: ({fullname, email, password}) => dispatch(signUpUser({fullname, email, password}))
     };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { View, Animated,Text, FlatList, StyleSheet, RefreshControl, ScrollView, Easing } from 'react-native';
-import ListView from '../../common/List';
+import ContentCard from '../../common/List';
 import { fetchAllBlog, fetchUserInfo, fetchAllUserNotification } from "../../../store/actions";
 import {connect} from 'react-redux';
 import {Router, Actions } from 'react-native-router-flux';
-import firebase from 'firebase';
-import _ from 'lodash';
 import Shimmer from 'react-native-shimmer';
 import LinearGradient from 'react-native-linear-gradient';
-import color from '../../../assets/color';
 import { Card } from '../../common/Card';
 import { CardSection } from '../../common/CardSection';
-
 
 class Landing extends Component {
 
@@ -34,7 +30,6 @@ class Landing extends Component {
     }
 
     componentWillReceiveProps(next) {
-     
         Actions.refresh({counter: 1});
         this.setState({
             info: next.allPosts
@@ -97,26 +92,28 @@ class Landing extends Component {
     renderComponent= () => {
         if (this.state.info) {
             return (
-                <FlatList
-                    onScroll={this.getScroll}
-                    scrollEventThrottle={16}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.refreshing}
-                            onRefresh={this._onRefresh.bind(this)}
-                            title='Pull to refresh'
-                        />
-                    }
-                    data={this.state.info}
-                    renderItem={({ item }) => (
-                        <ListView
-                            item={item}
-                        />
-                    )}
-                    keyExtractor={(item, index) => index}
-                >
-                </FlatList>
-            );
+                <View style={styles.container}>
+                    <FlatList
+                        onScroll={this.getScroll}
+                        scrollEventThrottle={16}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this._onRefresh.bind(this)}
+                                title='Pull to refresh'
+                            />
+                        }
+                        data={this.state.info}
+                        renderItem={({ item }) => (
+                            <ContentCard
+                                item={item}
+                            />
+                        )}
+                        keyExtractor={(item, index) => index}
+                    >
+                    </FlatList>
+                </View>
+            )
         }
         else {
             return (
@@ -176,9 +173,9 @@ class Landing extends Component {
         }
     }
 
-    render() {  
+    render() {
         return (
-            <View style={{flex:1}} >
+            <View style={{flex:1}}>
                 {this.renderComponent()}
             </View>
         );
@@ -194,7 +191,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 20
+        margin: 20
     },
     coverContainerStyle: {
         width: '100%',

@@ -17,37 +17,37 @@ class SingleBlog extends Component {
     }
 
     async componentDidMount() {
-        if (this.props.post.key) {
-            const blogId = this.props.post.key;
-        await this.props.fetch_Blog_Activity({ blogId });
-        }
-        if (this.props.likeActivity && this.props.likeActivity.likes != 0) {
-            this.setState({
-                like: this.props.likeActivity.likes,
-            });
-        } else {
-            this.setState({
-                like: '',
-            });
-        }
-
-        if (this.props.likeActivity && this.props.likeActivity.comments != 0) {
-            this.setState({
-                comment: this.props.likeActivity.comments
-            });
-        } 
+        // if (this.props.post.key) {
+        //     const blogId = this.props.post.key;
+        // await this.props.fetch_Blog_Activity({ blogId });
+        // }
+        // if (this.props.likeActivity && this.props.likeActivity.likes != 0) {
+        //     this.setState({
+        //         like: this.props.likeActivity.likes,
+        //     });
+        // } else {
+        //     this.setState({
+        //         like: '',
+        //     });
+        // }
+        //
+        // if (this.props.likeActivity && this.props.likeActivity.comments != 0) {
+        //     this.setState({
+        //         comment: this.props.likeActivity.comments
+        //     });
+        // }
     }
     deleteModalHandler = () => {
-        const userId = this.props.post.ownerId;
-        const blogId = this.props.post.key;
-        this.props.deleteBlog({userId, blogId});
+        // const userId = this.props.post.ownerId;
+        // const blogId = this.props.post.key;
+        // this.props.deleteBlog({userId, blogId});
     }
     likeHandler = () => {
-        const userId = this.props.user.uid;
-        const blogId = this.props.post.key;
-        console.log(userId, blogId);
-        
-        this.props.give_like({ blogId, userId});
+        // const userId = this.props.user.uid;
+        // const blogId = this.props.post.key;
+        // console.log(userId, blogId);
+        //
+        // this.props.give_like({ blogId, userId});
     }
     modalComponent = () => {
         return (  
@@ -76,32 +76,32 @@ class SingleBlog extends Component {
         );
     }
     renderMoreButton = () => {
-        if (this.props.user && this.props.user.uid === this.props.post.ownerId) {
-            return (
-
-                <View style={{
-                    marginLeft: -40,
-                    marginTop: 10
-                }}>
-                <TouchableOpacity
-                    onPress={() => {
-                        this.setState({
-                            showMoreModal: true
-                        });
-                    }}
-                >
-                    <Icon
-                        size={40}
-                            name={'md-more'}
-                        style={styles.moreIcon}
-                    />
-                </TouchableOpacity>
-                </View>
-            );
-        }
+        // if (this.props.user && this.props.user.uid === this.props.post.ownerId) {
+        //     return (
+        //
+        //         <View style={{
+        //             marginLeft: -40,
+        //             marginTop: 10
+        //         }}>
+        //         <TouchableOpacity
+        //             onPress={() => {
+        //                 this.setState({
+        //                     showMoreModal: true
+        //                 });
+        //             }}
+        //         >
+        //             <Icon
+        //                 size={40}
+        //                     name={'md-more'}
+        //                 style={styles.moreIcon}
+        //             />
+        //         </TouchableOpacity>
+        //         </View>
+        //     );
+        // }
     }
     alreadyLiked = () => {
-        const userId = this.props.user.uid;
+        // const userId = this.props.user.uid;
         console.log(userId, 'uid');
         
         if (this.state.like ) {
@@ -114,62 +114,63 @@ class SingleBlog extends Component {
     }
  
     render() {
-        const { imageUrl, createdAt, blogDescription, creatorInfo } = this.props.post.values;
+        console.log(this.props.post)
+        // const { imageUrl, createdAt, blogDescription, creatorInfo } = this.props.post.values;
         return (
                     <ScrollView style={{backgroundColor: '#fff'}} 
                     >
-                        <View style={{flex:1}}>
-                            <View style = {styles.coverContainer}>
-                                <Image source={{ uri: imageUrl}} style={styles.coverImageStyle} />
-                            </View>
-                            <View style= {styles.profileContainer}>
-                                <View style={styles.profileInfoContainer}>
-                                    <View style={styles.profileNameContainer}>
-                                <Image source={{ uri: creatorInfo.userInfo.profileImage }} style={styles.profileImageStyle} />  
-                                <Text style={styles.nameStyle}>{creatorInfo.userInfo.fullname}</Text>
-                                    </View>
-                                    <Text style={styles.timeStyle} >{moment(createdAt).fromNow()}</Text>
-                                </View>
-                                {this.renderMoreButton()}
-                            </View>
-                            <View style={styles.descriptionContainer}>
-                                <Text style={styles.description}>{blogDescription}</Text>    
-                            </View>
-                            <View style={styles.ActivityContainer}>
-                                <TouchableOpacity
-                                    onPress={this.likeHandler}
-                                >
-                                    <View style={styles.iconContainer}>
-                                        <Icon
-                                            color = {this.alreadyLiked() ? 'red': null}
-                                            size={30}
-                                            name={'ios-heart-outline'}
-                                            style= {styles.iconLike}
-                                        />
-                                <Text style={styles.likeTextStyle} >{Object.keys(this.state.like).length}</Text> 
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                            onPress={() => Actions.single_blog_comment({ blogId: this.props.post.key, ownerid: this.props.post.values.creatorInfo.ownerId})}
-                                >
-                                    <View style={styles.iconContainer}>
-                                        <Icon
-                                            size={30}
-                                            name={'ios-text-outline'}
-                                            style={styles.iconComment}
-                                        />
-                                <Text style={styles.commentTextStyle} >{Object.keys(this.state.comment).length}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View> 
+                        {/*<View style={{flex:1}}>*/}
+                            {/*<View style = {styles.coverContainer}>*/}
+                                {/*<Image source={{ uri: imageUrl}} style={styles.coverImageStyle} />*/}
+                            {/*</View>*/}
+                            {/*<View style= {styles.profileContainer}>*/}
+                                {/*<View style={styles.profileInfoContainer}>*/}
+                                    {/*<View style={styles.profileNameContainer}>*/}
+                                {/*<Image source={{ uri: creatorInfo.userInfo.profileImage }} style={styles.profileImageStyle} />  */}
+                                {/*<Text style={styles.nameStyle}>{creatorInfo.userInfo.fullname}</Text>*/}
+                                    {/*</View>*/}
+                                    {/*<Text style={styles.timeStyle} >{moment(createdAt).fromNow()}</Text>*/}
+                                {/*</View>*/}
+                                {/*{this.renderMoreButton()}*/}
+                            {/*</View>*/}
+                            {/*<View style={styles.descriptionContainer}>*/}
+                                {/*<Text style={styles.description}>{blogDescription}</Text>    */}
+                            {/*</View>*/}
+                            {/*<View style={styles.ActivityContainer}>*/}
+                                {/*<TouchableOpacity*/}
+                                    {/*onPress={this.likeHandler}*/}
+                                {/*>*/}
+                                    {/*<View style={styles.iconContainer}>*/}
+                                        {/*<Icon*/}
+                                            {/*color = {this.alreadyLiked() ? 'red': null}*/}
+                                            {/*size={30}*/}
+                                            {/*name={'ios-heart-outline'}*/}
+                                            {/*style= {styles.iconLike}*/}
+                                        {/*/>*/}
+                                {/*<Text style={styles.likeTextStyle} >{Object.keys(this.state.like).length}</Text> */}
+                                    {/*</View>*/}
+                                {/*</TouchableOpacity>*/}
+                                {/*<TouchableOpacity*/}
+                            {/*onPress={() => Actions.single_blog_comment({ blogId: this.props.post.key, ownerid: this.props.post.values.creatorInfo.ownerId})}*/}
+                                {/*>*/}
+                                    {/*<View style={styles.iconContainer}>*/}
+                                        {/*<Icon*/}
+                                            {/*size={30}*/}
+                                            {/*name={'ios-text-outline'}*/}
+                                            {/*style={styles.iconComment}*/}
+                                        {/*/>*/}
+                                {/*<Text style={styles.commentTextStyle} >{Object.keys(this.state.comment).length}</Text>*/}
+                                    {/*</View>*/}
+                                {/*</TouchableOpacity>*/}
+                            {/*</View> */}
                         
-                            <Confirm
-                                visible={this.state.showMoreModal}
-                                onDecline = {this.onDecline}
-                            >
-                                {this.modalComponent()}
-                            </Confirm>
-                        </View>
+                            {/*<Confirm*/}
+                                {/*visible={this.state.showMoreModal}*/}
+                                {/*onDecline = {this.onDecline}*/}
+                            {/*>*/}
+                                {/*{this.modalComponent()}*/}
+                            {/*</Confirm>*/}
+                        {/*</View>*/}
                     </ScrollView>
                        
         );

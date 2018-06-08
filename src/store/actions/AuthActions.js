@@ -22,7 +22,6 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {AsyncStorage} from 'react-native';
 
-
 export const signUpUser = ({fullname, email, password}) => {
     return (dispatch) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -56,11 +55,9 @@ export const signupUserSuccess = (dispatch, userInfo,user, {email, password}) =>
         }
     });
     const status = 'signUp';
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(
+    firebase.auth().signInWithEmailAndPassword(email, password).then(
         (user) => loginUserSuccess(dispatch, user, status)
-        )
-        .catch(() => loginUserFail(dispatch));
+        ).catch(() => loginUserFail(dispatch));
 }
 
 
@@ -132,7 +129,6 @@ export const logOutUser = () => {
 
 export const updateUserName = ({ name, image, userId}) => {
     console.log(name, 'name');
-    
     return (dispatch) => {
         dispatch({ type: UPDATE_USER_NAME });
         firebase.database().ref('userInfo/' + userId).set({
