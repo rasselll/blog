@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback, Image } from 'react-native';
 import { Card } from './Card';
-import { CardSection } from './CardSection';
-import { Actions } from 'react-native-router-flux';
+import {CardSection} from './CardSection';
+import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import color from '../../assets/color';
 class ListView extends Component {
 
-    onRowPress = values => {
-        alert(values.creatorInfo.userInfo.fullname + "\n" + values.blogDescription);
+    onRowPress = () => {
+       console.log('pressed');
     }
 
     render() {
         const { imageUrl, blogDescription, creatorInfo, createdAt } = this.props.item.values;
         return (
-            <TouchableNativeFeedback onPress={this.onRowPress.bind(this, this.props.item.values)} >
+            <TouchableNativeFeedback onPress={this.onRowPress} >
                 <View pointerEvent="box-only" >
                     <Card>
                         <CardSection>
@@ -44,75 +44,75 @@ class ListView extends Component {
             </TouchableNativeFeedback>
         );
     }
-
+   
 }
 
 const styles = StyleSheet.create({
-    coverContainerStyle: {
-        width: '100%',
-        height: 200
+    coverContainerStyle : {
+        width : '100%',
+        height : 200
     },
-    coverImageStyle: {
+    coverImageStyle :{
+       height : '100%',
+       width : '100%'
+    },
+    titleContainerStyle : {
+        width :'100%',
+        height : 80,
+        marginTop : 30,
+        paddingLeft : 10,
+        paddingRight : 10,
+        marginBottom : 10
+    },
+    titleStyle : {
         height: '100%',
-        width: '100%'
-    },
-    titleContainerStyle: {
         width: '100%',
-        height: 80,
-        marginTop: 30,
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginBottom: 10
+        fontSize : 18
     },
-    titleStyle: {
-        height: '100%',
-        width: '100%',
-        fontSize: 18
-    },
-    infoContainer: {
+    infoContainer : {
         width: '100%',
         height: 50,
         paddingLeft: 10,
         paddingRight: 10,
-        flexDirection: 'row',
+        flexDirection : 'row',
         alignItems: 'center'
     },
-    profileContainer: {
-        width: '70%',
-        height: '100%',
-        flexDirection: 'row',
-        alignItems: 'center'
+    profileContainer : {
+        width : '70%',
+        height : '100%',
+        flexDirection : 'row',
+        alignItems : 'center'
     },
-    profileImageContainer: {
-        width: '30%',
-        height: '100%'
+    profileImageContainer : {
+        width : '30%',
+        height : '100%'
     },
-    profileImageStyle: {
-        height: 40,
-        width: 40,
-        borderRadius: 50
+    profileImageStyle : {
+        height : 40,
+        width : 40,
+        borderRadius : 50
     },
-    nameContainerStyle: {
+    nameContainerStyle : {
         width: '60%',
         height: '100%',
-        marginTop: 10,
-        marginLeft: -15
+        marginTop :10,
+        marginLeft : -15
     },
-    nameStyle: {
-        fontWeight: 'bold',
+    nameStyle : {
+        fontWeight : 'bold',
         color: color.fontColor,
-        fontSize: 20,
+        fontSize : 20,
     },
-    timeContainer: {
+    timeContainer : {
         width: '30%',
         height: '100%',
-        marginTop: -10,
+        marginTop : -10,
         flexDirection: 'row',
         alignItems: 'center'
     },
-    timeStyle: {
-        fontSize: 12,
-        fontWeight: '100'
+    timeStyle : {
+        fontSize : 12,
+        fontWeight : '100'
     }
 
 
