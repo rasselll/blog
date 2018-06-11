@@ -8,7 +8,7 @@ const Input = (props) => {
     {
       label, iconName, value, onChangeText, placeholder,
       secureTextEntry, returnKeyType, keyboardType, autoCorrect,
-      labelStyl, style, valid, touched
+      labelStyl, style, valid, touched, autoCapitalize
     } = props;
 
   return (
@@ -21,6 +21,7 @@ const Input = (props) => {
         />
       </View>
       <TextInput
+        autoCapitalize={autoCapitalize === undefined ? "none" : autoCapitalize}
         style={{ flex: 1 }}
         secureTextEntry={secureTextEntry}
         autoCorrect={false}

@@ -9,7 +9,7 @@ import color from '../../assets/color';
 class ListView extends Component {
 
     onRowPress = values => {
-        alert(values.creatorInfo.userInfo.fullname + "\n" + values.blogDescription);
+        Actions.full_blog({ values: values });
     }
 
     render() {
@@ -26,16 +26,12 @@ class ListView extends Component {
                                 <Text style={styles.titleStyle}>{blogDescription}</Text>
                             </View>
                             <View style={styles.infoContainer}>
-                                <View style={styles.profileContainer}>
-                                    <View style={styles.profileImageContainer}>
-                                        <Image source={{ uri: creatorInfo.userInfo.profileImage }} style={styles.profileImageStyle} />
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                    <Image source={{ uri: creatorInfo.userInfo.profileImage }} style={styles.profileImageStyle} />
+                                    <Text style={styles.nameStyle}>{creatorInfo.userInfo.fullname}</Text>
+                                    <View style={{ flex: 1 }}>
+                                        <Text style={styles.timeStyle}>{moment(createdAt).fromNow()} </Text>
                                     </View>
-                                    <View style={styles.nameContainerStyle}>
-                                        <Text style={styles.nameStyle}>{creatorInfo.userInfo.fullname}</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.timeContainer}>
-                                    <Text style={styles.timeStyle}>{moment(createdAt).fromNow()} </Text>
                                 </View>
                             </View>
                         </CardSection>
@@ -90,7 +86,8 @@ const styles = StyleSheet.create({
     profileImageStyle: {
         height: 40,
         width: 40,
-        borderRadius: 50
+        borderRadius: 50,
+        marginRight: 10,
     },
     nameContainerStyle: {
         width: '60%',
@@ -101,7 +98,7 @@ const styles = StyleSheet.create({
     nameStyle: {
         fontWeight: 'bold',
         color: color.fontColor,
-        fontSize: 20,
+        fontSize: 15,
     },
     timeContainer: {
         width: '30%',
@@ -112,7 +109,8 @@ const styles = StyleSheet.create({
     },
     timeStyle: {
         fontSize: 12,
-        fontWeight: '100'
+        fontWeight: '100',
+        alignSelf: 'flex-end',
     }
 
 
