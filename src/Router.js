@@ -28,7 +28,7 @@ import SingleBlog from './component/screens/Blog/SingleBlog';
 import MyBlog from './component/screens/Blog/MyBlog';
 import Search from './component/screens/Blog/Search';
 import CreateBlog from './component/screens/Blog/CreateBlog';
-import Notifications from './component/screens/Blog/Notifications';
+import Salah from './component/screens/Blog/Salah';
 import Comment from './component/screens/Blog/Comments';
 import FullBlog from "./component/screens/Blog/FullBlog";
 
@@ -187,9 +187,9 @@ class RouterComponent extends Component {
                                             />
                                         </View>
                                     )}
-                                    key="notification_page"
-                                    component={Notifications}
-                                    title="Notifications"
+                                    key="salah_page"
+                                    component={Salah}
+                                    title="Salah Times"
                                     renderLeftButton={() => this.renderLeftMenuButton()}
                                 />
                             </Scene>
