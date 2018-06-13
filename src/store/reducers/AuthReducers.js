@@ -16,7 +16,8 @@ import {
     UPDATE_USER_PASSWORD_FAIL,
     UPLOAD_PROFILE_IMAGE,
     UPLOAD_PROFILE_IMAGE_FAIL,
-    UPLOAD_PROFILE_IMAGE_SUCCESS
+    UPLOAD_PROFILE_IMAGE_SUCCESS,
+    SET_USER_TOKEN
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -25,11 +26,14 @@ const INITIAL_STATE = {
     user: null,
     error: '',
     loading: false,
-    userInfo : null
+    userInfo : null,
+    userToken: null
 };
 
 export default (state = INITIAL_STATE, actions) => {
     switch (actions.type) {
+        case SET_USER_TOKEN:
+            return { ...state, userToken: actions.token };        
         case LOGIN_USER:
             console.log(actions );
             return { ...state, loading: true, error: '' };
