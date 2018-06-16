@@ -39,6 +39,45 @@ const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
 
+
+export const postStorymulti = (desc, imageData, userInfo, imageArray) => {
+    const { currentUser } = firebase.auth();
+    return (dispatch) => {
+        dispatch({type: POST_STORY });
+        let timestamp = new Date().getTime();
+        this.uploadImage(imageData)
+        .then(url =>
+            firebase.database().ref('blogs/' + currentUser.uid).push({
+                imageUrl: url,
+                blogDescription: desc, 
+                imagearray: imageArray,
+                creatorInfo: {
+                    ownerId: currentUser.uid,
+                    userInfo 
+                },
+                createdAt: timestamp
+            }).then( 
+                (blogInfo) => {  
+                    firebase.database().ref('blogActions/' + blogInfo.key).set({
+                        likes: 0,
+                        comments: 0
+                    }).then(() => {
+                        dispatch({type: BLOG_ACTIVITY_TABLE_CREATED });
+
+                        firebase.database().ref('blogs/').child(currentUser.uid).child(blogInfo.key)
+                        .on('value', snapshot => postStorySuccess(dispatch, snapshot.val()));
+                    });
+                }
+            )
+        )
+        .catch(error => postStoryFail(dispatch, error));
+    };
+};
+
+
+
+
+
 export const postStory = (desc, imageData, userInfo) => {
     const { currentUser } = firebase.auth();
     return (dispatch) => {

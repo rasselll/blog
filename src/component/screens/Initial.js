@@ -23,23 +23,21 @@ class Initial extends Component {
         setTimeout((function () {
             this.setState({ progress: this.state.progress + (0.02 * Math.random()) });
             Actions.auth()
-        }).bind(this), 3000);
+        }).bind(this), 800);
     }
 
     render () {
         return (
+  
             <View style={styles.container}>
-                <Image source={require('../../assets/initial_back.png')} 
-                    style={styles.backgroundImageStyle}
-                
-                />
+            <StatusBar hidden={true} />
                 <View style={styles.mainContainer}>
                     <View style={{width: '100%', 
-                    height: '75%', alignItems: 'center', justifyContent: 'center' }}>
+                    height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                         <View style={styles.iconContainer}>
-                            <Image source={require('../../assets/initial_icon.png')} style={styles.iconStyle} />
+                            <Image source={require('../../assets/imageicon.png')} style={styles.iconStyle} />
                         </View>
-                        <Text style={styles.titleStyle}>Artisan's Story</Text>
+                        <Text style={styles.titleStyle}>PT MOSQUE</Text>
                     </View>
                     <View style={{ height: '25%', width: '100%', alignItems: 'center', justifyContent: 'center'}}>
                         <Progress.Bar
@@ -70,15 +68,15 @@ const styles= StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#fff'
     },
     iconContainer : { 
-        height: 230,
-        width : 230,
-        marginTop: '20%'
+        height: 50,
+        width : 50
     },
     iconStyle : {
-        height : '100%',
+        height : '120%',
         width : '100%'
     },
     progress :{
@@ -86,11 +84,11 @@ const styles= StyleSheet.create({
         marginTop: '20%',
     },
     titleStyle : {
-        fontFamily: 'DancingScript-Bold',
-        fontSize: 48,
-        marginTop: 10,
+        fontFamily: 'Comfortaa-Bold',
+        fontSize: 28,
+        marginTop: 20,
         marginBottom: 10,
-        color: '#323648'
+        color: '#000'
     }
 });
 

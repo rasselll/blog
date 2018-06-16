@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
+        paddingHorizontal: 25,
+        paddingVertical: 20,
         backgroundColor: '#4185f6',
         marginBottom: 2
     },
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         color: "#fff"
     },
    prayJamat: {
-        fontSize: 12,
+        marginTop: 5,
+        fontSize: 15,
         color: "#fff"
     },
     prayTime: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         color: "#fff"
     },
     icon: {
-        width: 35,
-        height: 30
+        width: 45,
+        height: 40
     }
 })

@@ -16,6 +16,7 @@ import com.oblador.shimmer.RNShimmerPackage;
 import com.bugsnag.BugsnagReactNative;
 import java.util.Arrays;
 import java.util.List;
+import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -36,7 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ImagePickerPackage(),
           new RNFetchBlobPackage(),
           new SplashScreenReactPackage(),
-          new RNShimmerPackage()
+          new RNShimmerPackage(),
+           new WebViewBridgePackage()
       );
     }
 

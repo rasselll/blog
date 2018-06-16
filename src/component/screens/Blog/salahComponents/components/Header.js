@@ -39,9 +39,7 @@ export default class Header extends React.Component {
     
         return (
             <View style={styles.container}>
-           
-                <Text style={styles.locationText}>{this.props.location}</Text>
-                  <Text style={styles.locationText}>{this.props.jamatTime}</Text>
+
             </View>
         )
     }
@@ -49,8 +47,8 @@ export default class Header extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 20,
-        paddingBottom: 25
+        paddingTop: 0,
+        paddingBottom: 0
     },
     dateText: {
         fontSize: 16,

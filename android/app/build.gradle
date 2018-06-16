@@ -159,6 +159,7 @@ dependencies {
     compile project(':react-native-splash-screen')  
     compile project(':react-native-shimmer')     
     compile project(':bugsnag-react-native')
+    compile project(':react-native-webview-bridge')
 
 }
 
@@ -174,3 +175,8 @@ project.ext.vectoricons = [
 ]
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+project.afterEvaluate {
+    apply from: '../../node_modules/react-native-zss-rich-text-editor/htmlCopy.gradle';
+    copyEditorHtmlToAppAssets(file('../../node_modules/react-native-zss-rich-text-editor'))
+}

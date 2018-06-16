@@ -19,12 +19,12 @@ class App extends React.Component {
     componentWillMount() {
         const bugsnag = new Client();
         const config = {
-            apiKey: "",
-            authDomain: "",
-            databaseURL: "",
-            projectId: "",
-            storageBucket: "",
-            messagingSenderId: ""
+            apiKey: "AIzaSyA-UwUODQ-tNcF8IYUEulxAjYR4NPH0O20",
+            authDomain: "http://ptmosque.firebaseapp.com/",
+            databaseURL: "https://ptmosque.firebaseio.com/",
+            projectId: "ptmosque",
+            storageBucket: "gs://ptmosque.appspot.com",
+            messagingSenderId: "760047121068"
         };
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
@@ -36,7 +36,7 @@ class App extends React.Component {
         const store = createStore(reducers, {}, applyMiddleware(ReduxThunk))
 
         return (
-            <View style={{ flex: 1, backgroundColor: '#e6ffff'}}>
+            <View style={{ flex: 1, backgroundColor: '#fff'}}>
                 <StatusBar
                     backgroundColor={'#000'}
                     barStyle='light-content'

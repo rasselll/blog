@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Scene, Router, Stack, Actions } from 'react-native-router-flux';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import color from './assets/color'
 /*==============================================
@@ -28,9 +28,11 @@ import SingleBlog from './component/screens/Blog/SingleBlog';
 import MyBlog from './component/screens/Blog/MyBlog';
 import Search from './component/screens/Blog/Search';
 import CreateBlog from './component/screens/Blog/CreateBlog';
-import Notifications from './component/screens/Blog/Notifications';
+import Salah from './component/screens/Blog/Salah';
 import Comment from './component/screens/Blog/Comments';
- 
+import FullBlog from "./component/screens/Blog/FullBlog";
+import NewPost from "./component/screens/Blog/NewPost";
+
 /*==============================================
              Profile Routes
 =============================================*/
@@ -40,7 +42,7 @@ import Settings from './component/screens/User/Settings';
 
 
 class RouterComponent extends Component {
-    
+
     renderLeftMenuButton = () => {
         return (
             <TouchableOpacity onPress={() => Actions.drawerOpen()}>
@@ -52,7 +54,7 @@ class RouterComponent extends Component {
                 />
             </TouchableOpacity>
         );
-    } 
+    }
 
     renderLeftBackButton = () => {
         return (
@@ -66,8 +68,8 @@ class RouterComponent extends Component {
             </TouchableOpacity>
         );
     }
- 
-    render () { 
+
+    render() {
         return (
             <Router navigationBarStyle={{ backgroundColor: '#fff' }}
 
@@ -103,23 +105,24 @@ class RouterComponent extends Component {
                         />
 
                     </Stack>
-                    <Scene key="lightbox"  lightbox >
+                    <Scene key="lightbox" lightbox >
                         <Scene key="drawer" drawer contentComponent={Drawer}>
                             <Scene key="tabbar"
-                                tabBarStyle={{ position: 'relative',
-                                 overflow: 'visible',
-                                 paddingLeft: 70 ,
-                                 backgroundColor: '#fff'
+                                tabBarStyle={{
+                                    position: 'relative',
+                                    overflow: 'visible',
+                                    paddingLeft: 70,
+                                    backgroundColor: '#fff'
                                 }}
                                 showLabel={true} activeBackgroundColor='#fff'
                                 activeTintColor={color.themeColor} tabs={true}
                                 tabBarPosition={'bottom'}
-                                
+
                             >
                                 <Scene
                                     key="landing_page"
                                     component={Landing}
-                                    renderLeftButton={()=>this.renderLeftMenuButton()}
+                                    renderLeftButton={() => this.renderLeftMenuButton()}
                                     // renderRightButton={() => (
                                     //     <TouchableOpacity onPress={() => Actions.search_tab()}>
                                     //         <Icon
@@ -137,11 +140,11 @@ class RouterComponent extends Component {
                                                 size={40}
                                                 name={`ios-list-outline`}
                                                 text={`My Account`}
-                                                color={focused ? color.themeColor : null }
+                                                color={focused ? color.themeColor : null}
                                             />
                                         </View>
                                     )}
-                                   
+
                                 />
                                 {/* <Scene 
                                     key="search_tab" 
@@ -160,41 +163,59 @@ class RouterComponent extends Component {
                                 /> */}
                                 <Scene
                                     tabBarLabel={({ focused }) => (
-                                    <View>
-                                        <Icon
-                                            size={40}
-                                            name={`ios-add-outline`}
-                                            text={`My Account`}
-                                            color={focused ? color.themeColor : null}
-                                        />
-                                    </View>
-                                )} 
-                                    key="tab3_1" 
-                                    component={CreateBlog} 
-                                    title="Create" 
-                                    renderLeftButton={() => this.renderLeftMenuButton()} 
+                                        <View>
+                                            <Icon
+                                                size={40}
+                                                name={`ios-add-outline`}
+                                                text={`My Account`}
+                                                color={focused ? color.themeColor : null}
+                                            />
+                                        </View>
+                                    )}
+                                    key="tab3_1"
+                                    component={CreateBlog}
+                                    title="Create"
+                                    renderLeftButton={() => this.renderLeftMenuButton()}
                                 />
-                                <Scene 
-                                    tabBarLabel = {({ focused }) => (
-                                    <View>
-                                    <Icon
-                                        size={40}
-                                        name={`ios-notifications-outline`}
-                                        text={`My Account`}
-                                        color={focused ? color.themeColor : null}
-                                    />
-                                </View>
-                                )} 
-                                    key="notification_page" 
-                                    component={Notifications} 
-                                    title="Notifications" 
-                                    renderLeftButton={() => this.renderLeftMenuButton()} 
+                                <Scene
+                                    tabBarLabel={({ focused }) => (
+                                        <View>
+                                            <Icon
+                                                size={40}
+                                                name={`ios-notifications-outline`}
+                                                text={`My Account`}
+                                                color={focused ? color.themeColor : null}
+                                            />
+                                        </View>
+                                    )}
+                                    key="salah_page"
+                                    component={Salah}
+                                    title="Salah Times"
+                                    renderLeftButton={() => this.renderLeftMenuButton()}
+                                />
+
+
+                                    <Scene
+                                    tabBarLabel={({ focused }) => (
+                                        <View>
+                                            <Icon
+                                                size={40}
+                                                name={`ios-notifications-outline`}
+                                                text={`My Account`}
+                                                color={focused ? color.themeColor : null}
+                                            />
+                                        </View>
+                                    )}
+                                    key="newpost_page"
+                                    component={NewPost}
+                                    title="Post"
+                                    renderLeftButton={() => this.renderLeftMenuButton()}
                                 />
                             </Scene>
-                            <Scene 
+                            <Scene
                                 key='single_blog'
                                 title='Post'
-                                component={SingleBlog} 
+                                component={SingleBlog}
                                 renderLeftButton={() => this.renderLeftBackButton()}
                             />
                             <Scene
@@ -203,7 +224,7 @@ class RouterComponent extends Component {
                                 component={Comment}
                                 renderLeftButton={() => this.renderLeftBackButton()}
                             />
-                            <Scene 
+                            <Scene
                                 key='profile_page'
                                 component={Profile}
                                 title={'Profile'}
@@ -217,6 +238,11 @@ class RouterComponent extends Component {
                             />
                         </Scene>
                     </Scene>
+                    <Scene key="full_blog"
+                        component={FullBlog}
+                        title="Full Blog"
+                        renderLeftButton={this.renderLeftBackButton}
+                    />
                 </Stack>
             </Router>
         );
@@ -224,10 +250,10 @@ class RouterComponent extends Component {
 };
 
 const styles = StyleSheet.create({
-    tabViewWrapperStyle : {
+    tabViewWrapperStyle: {
         backgroundColor: color.themeColor,
         position: 'absolute',
-        top:-50
+        top: -50
     },
     searchView: {
         height: 56,

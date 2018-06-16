@@ -26,3 +26,6 @@ project(':react-native-shimmer').projectDir = new File(rootProject.projectDir, '
 
 include ':bugsnag-react-native'
 project(':bugsnag-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/bugsnag-react-native/android')
+
+include ':app', ':react-native-webview-bridge'
+project(':react-native-webview-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview-bridge/android')

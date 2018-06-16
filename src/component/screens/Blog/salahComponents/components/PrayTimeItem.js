@@ -23,21 +23,21 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
+        paddingHorizontal: 25,
+        paddingVertical: 20,
         backgroundColor: 'white',
         marginBottom: 2
     },
     prayName: {
-        fontSize: 14,
+        fontSize: 16,
         color: colors.brownish_grey
     },
     prayTime: {
-        fontSize: 18,
+        fontSize: 20,
         color: colors.brownish_grey
     },
     icon: {
-        width: 35,
-        height: 30
+        width: 45,
+        height: 40
     }
 })
