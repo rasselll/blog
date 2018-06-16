@@ -31,7 +31,7 @@ import CreateBlog from './component/screens/Blog/CreateBlog';
 import Salah from './component/screens/Blog/Salah';
 import Comment from './component/screens/Blog/Comments';
 import FullBlog from "./component/screens/Blog/FullBlog";
-
+import NewPost from "./component/screens/Blog/NewPost";
 
 /*==============================================
              Profile Routes
@@ -195,7 +195,22 @@ class RouterComponent extends Component {
                                 />
 
 
-
+                                    <Scene
+                                    tabBarLabel={({ focused }) => (
+                                        <View>
+                                            <Icon
+                                                size={40}
+                                                name={`ios-notifications-outline`}
+                                                text={`My Account`}
+                                                color={focused ? color.themeColor : null}
+                                            />
+                                        </View>
+                                    )}
+                                    key="newpost_page"
+                                    component={NewPost}
+                                    title="Post"
+                                    renderLeftButton={() => this.renderLeftMenuButton()}
+                                />
                             </Scene>
                             <Scene
                                 key='single_blog'
