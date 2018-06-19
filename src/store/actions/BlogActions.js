@@ -38,24 +38,56 @@ const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
 window.Blob = Blob;
+var newimageArray = [];
+var mynewimageArray = [];
+var mycontent;
+var inited = false;
+let yes = "as2";
 
 
+
+
+
+///// MULTI IMAGE UPLOAD
 export const postStorymulti = (desc, imageData, userInfo, imageArray) => {
+   // newimageArray[imageArray.length];
+alert('post content ....');
+
     const { currentUser } = firebase.auth();
     return (dispatch) => {
         dispatch({type: POST_STORY });
         let timestamp = new Date().getTime();
-        this.uploadImage(imageData)
-        .then(url =>
+
+
+
+        this.multiuploadImage(imageArray)
+
+        
+                   
+ 
+
+//alert(newimageArray[0])
+
+
+        .then(url  =>
+
+           
+
+         this.changedesc(desc, imageArray).then(wo=> 
+
+
             firebase.database().ref('blogs/' + currentUser.uid).push({
-                imageUrl: url,
-                blogDescription: desc, 
-                imagearray: imageArray,
+
+                imageUrl: wo,
+
+                blogDescription: wo, 
+               
                 creatorInfo: {
                     ownerId: currentUser.uid,
                     userInfo 
                 },
-                createdAt: timestamp
+                createdAt: timestamp,
+
             }).then( 
                 (blogInfo) => {  
                     firebase.database().ref('blogActions/' + blogInfo.key).set({
@@ -69,14 +101,76 @@ export const postStorymulti = (desc, imageData, userInfo, imageArray) => {
                     });
                 }
             )
+
+
+
+          ).catch(error => postStoryFail(dispatch, error))
+
         )
         .catch(error => postStoryFail(dispatch, error));
+
+
+
+
+         
     };
+
+
+
+
+
+
 };
 
 
+changedesc =(desc, imageArray) => {
 
 
+alert(desc);
+alert(newimageArray.toString());
+
+
+    var wo;
+
+    return new Promise((resolve, reject) => {
+var nn = desc.toString();
+//alert(nn);
+
+var coolarray = ['asdasd1', 'sadasd2'];
+//alert(newimageArray[0]);
+//alert(newimageArray[2]); 'y'
+
+     var rgx = /<img src="([^">]+)"/g;
+        var match; 
+        for(var ya = 0; ya < imageArray.length; ya++){
+  
+         match = rgx.exec(nn);
+         nn=  nn.replace(match[1], newimageArray[ya]);
+        //alert(nn);  // match[1] contains the captured group
+
+        }
+       
+yes = nn;
+wo = nn;
+
+                resolve(wo)
+             
+                 // alert(newimageArray.toString());
+                
+            
+            .catch((error) => {
+                reject(error)
+            }); 
+
+});
+
+ 
+
+       
+}
+
+
+//SINGLE POST UPLOAD
 
 export const postStory = (desc, imageData, userInfo) => {
     const { currentUser } = firebase.auth();
@@ -125,10 +219,11 @@ export const postStorySuccess = (dispatch, post) => {
         payload: post
     });
     Actions.landing_page();
+
 };
 
 
-
+///SINGLE IMAGE UPLOAD ///
 uploadImage =(uri) => {
     return new Promise((resolve, reject) => {
         const uploadUri = uri;
@@ -155,6 +250,63 @@ uploadImage =(uri) => {
                 reject(error)
             }); 
     });
+}
+
+
+
+//// MULTI IMAGE UPLOAD
+multiuploadImage =(imageArray) => {
+
+
+    return new Promise((resolve, reject) => {
+            for(var i = 0; i < imageArray.length; i++){
+                let ii = i;
+      
+        //alert(imageArray[i]);
+        const uploadUri = imageArray[i];
+        let uploadBlob = null;
+        let mime = 'image/jpg';
+        const imageRef = firebase.storage().ref('uploads').child(uiqueID());
+
+        fs.readFile(uploadUri, 'base64')
+            .then((data) => {
+                return Blob.build(data, { type: `${mime};BASE64` });
+            })
+            .then((blob) => {
+                uploadBlob = blob
+                return imageRef.put(blob, { contentType: mime });
+            })
+            .then(() => {
+                uploadBlob.close();
+                return imageRef.getDownloadURL();
+
+
+
+            })
+            .then((url) => {
+                resolve(url)
+               
+                   newimageArray[ii] = url;
+                 // alert(newimageArray.toString());
+                
+             
+
+                
+            })
+            .catch((error) => {
+                reject(error)
+            }); 
+
+    }
+   
+
+   
+        
+    });
+
+  inited = true;
+    
+
 }
 
 uiqueID = () => {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, FLatList, FlatList, RefreshControl, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import color from '../../../assets/color';
-import {connect, Connect} from 'react-redux';
-import {postStory} from '../../../store/actions';
+
 import {Actions} from 'react-native-router-flux';
 
-
+import {connect, Connect} from 'react-redux';
+import {postStorymulti} from '../../../store/actions';
 import { RichTextEditor, RichTextToolbar } from 'react-native-zss-rich-text-editor';
 import ImagePicker from 'react-native-image-picker';
 
@@ -16,6 +16,7 @@ class Notifications extends Component {
     this.getHTML = this.getHTML.bind(this);
     this.setFocusHandlers = this.setFocusHandlers.bind(this);
   }
+
 
     render() {
    
@@ -32,7 +33,7 @@ class Notifications extends Component {
               initialTitleHTML={'Title!!'}
               contentPlaceholder={'Say something nice :)'}
               titlePlaceholder={'Add a title'}
-              initialContentHTML={'Hello <b>World</b> <p>this is a new paragraph</p> <p>this is another new paragraph</p>'}
+              initialContentHTML={'Hello <b>World</b> <p>this is a new paragraph</p> <p>this is another new paragraph</p><img src="content://media/external/images/media/21260" width="200" height="200" />klklklk<img src="content://media/external/images/media/21260" width="200" height="200" />'}
               editorInitializedCallback={() => this.onEditorInitialized()}
           />
           <RichTextToolbar
@@ -65,7 +66,7 @@ class Notifications extends Component {
 
           <Button
   onPress={this.getHTML}
-  title="Learn More"
+  title="POST CONTENT"
   color="#841584"
   accessibilityLabel="Learn more about this purple button"
 />
@@ -101,13 +102,29 @@ while (match = rgx.exec(contentHtml)) {
 }
 
 
+    const description = contentHtml;
+            const imageUri = "content://media/external/images/media/21260";
+            const userInfo = this.props.userInfo;
+            const imageArray = results.slice(0);
+            this.props.shareStory(description, imageUri, userInfo, imageArray);
+
+
+
+
+//alert(imageArray.length);
+
+
+}
+
+
+  
+        
+        
+
 }
 
 
 
-
-alert(contentHtml);
-}
  
   
 
@@ -206,7 +223,7 @@ const mapStateToProps = ({auth, blog}) => {
 
 const mapDispatchTOProps = dispatch => {
     return {
-        shareStory: (description, imageUri, userInfo) => dispatch(postStory(description, imageUri, userInfo))
+        shareStory: (description, imageUri, userInfo, imageArray) => dispatch(postStorymulti(description, imageUri, userInfo, imageArray))
     };
 };
 
